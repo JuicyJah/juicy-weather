@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%sveltekit.assets%/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/src/app.scss" />
+  <title>%sveltekit.error.message%</title>
+</head>
+
+<body class="dark:bg-slate-900">
+  <main class="grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8">
+    <div class="text-center">
+      <h1 class="text-9xl font-bold text-indigo-600 dark:text-indigo-400">%sveltekit.status%</h1>
+      <p class="mt-4 text-5xl font-semibold tracking-tight text-gray-900 dark:text-slate-200 sm:text-5xl">
+        %sveltekit.error.message%</p>
+    </div>
+  </main>
+  <script>
+    if ((typeof localStorage != "undefined" && localStorage.theme === 'dark') || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  </script>
+</body>
+
+</html>
