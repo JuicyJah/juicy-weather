@@ -13,7 +13,7 @@
 
 <div class="container max-w-xl mx-auto">
 	<div class="flex justify-between">
-		<h1 class="text-lg">{$weather.location.name}, {$weather.location.region}, {$weather.location.country}</h1>
+		<h1 class="text-lg dark:text-slate-200">{$weather.location.name}, {$weather.location.region}, {$weather.location.country}</h1>
 		<label class="inline-flex items-center cursor-pointer">
 			<span class="me-2 text-sm font-medium text-gray-900 dark:text-gray-300">&deg; C</span>
 			<input type="checkbox" bind:checked={$settings.farenheight} class="sr-only peer" />

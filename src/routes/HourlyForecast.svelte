@@ -4,7 +4,7 @@
 </script>
 
 <div class="my-4">
-	<h2 class="text-xl px-1">Upcoming</h2>
+	<h2 class="text-xl px-1 dark:text-slate-200">Upcoming</h2>
 	<div class="flex flex-row no-wrap max-w-full overflow-auto py-4">
 		{#each hours as { temp, icon, time }}
 			<div class="flex flex-col p-4 bg-white border border-slate-300 rounded-lg m-1 justify-between">
