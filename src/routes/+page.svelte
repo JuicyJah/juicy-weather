@@ -1,19 +1,42 @@
 <script>
 	import { settings } from '$lib/stores/settings.js'
 	import weather from '$lib/stores/weather.js'
+	import { setLocationInLocalStorage } from '$lib/helpers/location.js'
 	import WeekForecast from './WeekForecast.svelte'
 	import SummaryRightNow from './SummaryRightNow.svelte'
 	import HourlyForecast from './HourlyForecast.svelte'
+	import LocationSearch from './LocationSearch.svelte'
+
 	export let data
 
-	$: console.log('weather data', data)
+	let errors, loading
+
+	// $: console.log('weather data', data)
 	$: weather.set(data)
-	$: console.log('weather store', $weather)
+	// $: console.log('weather store', $weather)
+
+	async function search(e) {
+		const loc = e.detail
+		try {
+			loading = true
+			const resp = await fetch(`api/weather?lat-long=${loc?.lat},${loc?.lon}`)
+			data = await resp.json()
+
+			if (data?.location) setLocationInLocalStorage(data.location)
+		} catch (e) {
+			errors = e
+			console.log('errors while searching for weather', e)
+		} finally {
+			loading = false
+		}
+	}
 </script>
 
 <div class="container max-w-xl mx-auto">
-	<div class="flex justify-between">
-		<h1 class="text-lg dark:text-slate-200">{$weather.location.name}, {$weather.location.region}, {$weather.location.country}</h1>
+	<div class="py-4">
+		<LocationSearch on:select={search} currentLocation={$weather.location} />
+	</div>
+	<div class="flex justify-end">
 		<label class="inline-flex items-center cursor-pointer">
 			<span class="me-2 text-sm font-medium text-gray-900 dark:text-gray-300">&deg; C</span>
 			<input type="checkbox" bind:checked={$settings.farenheight} class="sr-only peer" />
@@ -24,11 +47,17 @@
 		</label>
 	</div>
 
-	<SummaryRightNow current={$weather.current} degree={$weather.degree} />
+	{#if loading}
+		<div class="dark:text-slate-200">Loading Weather...</div>
+	{:else if data}
+		<SummaryRightNow current={$weather.current} degree={$weather.degree} />
 
-	<HourlyForecast hours={$weather.current.hourly} />
+		<HourlyForecast hours={$weather.current.hourly} />
 
-	{#if location}
-		<WeekForecast forecast={$weather.forecast} />
+		{#if location}
+			<WeekForecast forecast={$weather.forecast} />
+		{/if}
+	{:else}
+		<div class="dark:text-slate-200">No Weather Data Found</div>
 	{/if}
 </div>
