@@ -32,11 +32,11 @@
 	}
 </script>
 
-<div class="container max-w-xl mx-auto">
+<div class="container max-w-xl mx-auto px-2">
 	<div class="py-4">
 		<LocationSearch on:select={search} currentLocation={$weather.location} />
 	</div>
-	<div class="flex justify-end">
+	<div class="flex justify-end pt-2">
 		<label class="inline-flex items-center cursor-pointer">
 			<span class="me-2 text-sm font-medium text-gray-900 dark:text-gray-300">&deg; C</span>
 			<input type="checkbox" bind:checked={$settings.farenheight} class="sr-only peer" />
