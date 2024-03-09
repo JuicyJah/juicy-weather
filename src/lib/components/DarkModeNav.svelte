@@ -6,7 +6,7 @@
 	}
 </script>
 
-<div class="w-full p-8">
+<div class="w-full pt-4 pr-4 md:p-8 pb-12">
 	<button class="relative float-right text-3xl dark:text-slate-200 z-10" on:click={toggleDarkMode}>
 		{#if $settings.darkMode}
 			<i class="fa-regular fa-lightbulb"></i>
